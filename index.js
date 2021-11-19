@@ -1,6 +1,5 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
-const chalk = require("chalk");
 
 const db = mysql.createConnection(
   {
@@ -20,7 +19,7 @@ const validateName = (answer) => {
   if (pass) {
     return true;
   }
-  return chalk.red("Please enter a valid name.");
+  return ("Please enter a valid name.");
 };
 
 // Validation for a numerical value
@@ -29,7 +28,7 @@ const validateNumber = (answer) => {
   if (pass) {
     return true;
   }
-  return chalk.red("Please enter a numeric value.");
+  return ("Please enter a numeric value.");
 };
 
 // Main prompt questions
@@ -38,7 +37,7 @@ const mainLobby = () => {
     .prompt({
       type: "list",
       name: "mainListOfActions",
-      message: chalk.yellow(`What would you like to do?`),
+      message: (`What would you like to do?`),
       choices: [
         "View All Employees",
         "Add Employee",
@@ -68,9 +67,7 @@ const mainLobby = () => {
         case "Add a Role":
           addRole();
           break;
-        // case "Delete a Role":
-        //   deleteRole();
-        //   break;
+  
         case "View All Departments":
           viewDep();
           break;
@@ -125,25 +122,25 @@ const addEmployee = () => {
         {
           type: "input",
           name: "firstName",
-          message: chalk.yellow(`What is the employee's name?`),
+          message: (`What is the employee's name?`),
           validate: validateName,
         },
         {
           type: "input",
           name: "lastName",
-          message: chalk.yellow(`What is the employee's last name?`),
+          message: (`What is the employee's last name?`),
           validate: validateName,
         },
         {
           type: "list",
           name: "title",
-          message: chalk.yellow(`What is the employee's title?`),
+          message: (`What is the employee's title?`),
           choices: roleData,
         },
         {
           type: "list",
           name: "manager",
-          message: chalk.yellow(`Who is the employee's manager?`),
+          message: (`Who is the employee's manager?`),
           choices: managers,
         },
       ])
@@ -155,7 +152,7 @@ const addEmployee = () => {
             if (err) {
               console.log(err);
             }
-            console.log(chalk.red("A new employee was added to the database"));
+            console.log(("A new employee was added to the database"));
             mainLobby();
           }
         );
@@ -189,7 +186,7 @@ const updateRole = () => {
           {
             type: "list",
             name: "updatedEmployee",
-            message: chalk.yellow(
+            message:(
               `Which employee's role would you like to update?`
             ),
             choices: listOfNames,
@@ -197,7 +194,7 @@ const updateRole = () => {
           {
             type: "list",
             name: "updatedRole",
-            message: chalk.yellow(
+            message:(
               `Which role do you wish to assign to the selected employee?`
             ),
             choices: rolesData,
@@ -262,19 +259,19 @@ const addRole = () => {
         {
           type: "input",
           name: "title",
-          message: chalk.yellow(`What is the name of the role you wish to add?`),
+          message: (`What is the name of the role you wish to add?`),
           validate: validateName,
         },
         {
           type: "input",
           name: "salary",
-          message: chalk.yellow(`What is the salary going to be for this role?`),
+          message: (`What is the salary going to be for this role?`),
           validate: validateNumber,
         },
         {
           type: "list",
           name: "role",
-          message: chalk.yellow(`What department does the role belong to?`),
+          message: (`What department does the role belong to?`),
           choices: depData,
         },
       ])
@@ -286,7 +283,7 @@ const addRole = () => {
             if (err) {
               console.log(err);
             }
-            console.log(chalk.red(`A new role is added to the database`));
+            console.log(`A new role is added to the database`);
             mainLobby();
           }
         );
@@ -314,7 +311,7 @@ const addDep = () => {
       {
         type: "input",
         name: "department",
-        message: chalk.yellow(
+        message: (
           `What is the name of the department you wish to add?`
         ),
         validate: validateName,
@@ -329,7 +326,7 @@ const addDep = () => {
             console.log(err);
           }
           console.log(
-            chalk.red(
+            (
               `A new department ${data.department} is added to the database`
             )
           );
