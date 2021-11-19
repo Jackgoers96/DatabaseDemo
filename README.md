@@ -23,7 +23,7 @@ The dependencies must be installed for this application to work properly:
 Link [here](https://github.com/Jackgoers96/DatabaseDemo)
 video [here](https://watch.screencastify.com/v/sRortwU6RI6Pu5wz3SQl)
 
-##Demo
+## Demo
 
 
 ![image](https://user-images.githubusercontent.com/81663225/142688387-cc926439-fa5d-4586-abc3-347e6763fefb.png)
@@ -35,7 +35,7 @@ You can start the application by using the following command:
 "npm start" OR "node server.js"
 
 
-##Credits
+## Credits
 
 -Thanks to Trilogy Education and my Tutor, Jose. 
 
