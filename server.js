@@ -44,9 +44,10 @@ const mainLobby = () => {
         "View All Roles",
         "Add a Role",
         "Delete a Role",
+        "Delete an Employee",
         "View All Departments",
         "Add a Department",
-        "Quit",
+        "Quit"
       ],
     })
     .then((choice) => {
@@ -68,6 +69,9 @@ const mainLobby = () => {
           break;
         case "Delete a Role":
           deleteRole();
+          break;
+          case "Delete an Employee":
+          deleteEmployee();
           break;
         case "View All Departments":
           viewDep();
@@ -151,7 +155,7 @@ const addEmployee = () => {
             if (err) {
               console.log(err);
             }
-            console.log(("A new employee was added to the database"));
+            console.log(("A new employee was hired!"));
             mainLobby();
           }
         );
@@ -284,40 +288,118 @@ const addRole = () => {
 
 // deleteRole
 const deleteRole = () => {
-  db.query(`SELECT * FROM roles`, (err, data) => {
+  db.query(`SELECT * FROM employees;`, (err, data) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  db.query(`SELECT * FROM roles;`, (err, roles) => {
     if (err) {
       console.log(err);
       return;
     }
-    const deleteData = data.map(listOfRoles => ({
+
+    const listOfNames = data.map(
+      (staffNames) =>
+        `${staffNames.id}: ${staffNames.first_name} ${staffNames.last_name} `
+    );
+    const rolesData = roles.map((listOfRoles) => ({
       name: listOfRoles.title,
-      value: listOfRoles.id
+      value: listOfRoles.id,
     }));
-  inquirer
+    inquirer
       .prompt([
         {
           type: "list",
-          name: "deletedRole",
-          message: (`What role would you like to delete?`),
-          choices: deleteData,
+          name: "updatedEmployee",
+          message: `Which employee's role would you like to update?`,
+          choices: listOfNames,
+        },
+        {
+          type: "list",
+          name: "updatedRole",
+          message: `Which role do you wish to assign to the selected employee?`,
+          choices: rolesData,
         },
       ])
-      .then((deletedRole) => {
+
+      .then((udateEmployeeResponse) => {
+        console.log(udateEmployeeResponse);
         db.query(
-          `DELETE FROM roles WHERE id = ?`,
-          [deletedRole.deleteData],
-          (err, data) => {
+          `UPDATE employees SET role_id = ? WHERE id = ?`,
+          [
+            udateEmployeeResponse.updatedRole,
+            udateEmployeeResponse.updatedEmployee.split(": ")[0],
+          ],
+          (err, roles) => {
             if (err) {
               console.log(err);
             }
-            console.log(`A role has been deleted from the database`);
+            console.log(`Role removed!`);
             mainLobby();
           }
         );
       });
   });
+})}
 
-}
+
+// const deleteEmployee = () => {
+//   db.query(`SELECT * FROM employees;`, (err, data) => {
+//     if (err) {
+//       console.log(err);
+//       return;
+//     }
+//     db.query(`SELECT * FROM roles;`, (err, roles) => {
+//       if (err) {
+//         console.log(err);
+//         return;
+//       }
+  
+//       const listOfNames = data.map(
+//         (staffNames) =>
+//           `${staffNames.id}: ${staffNames.first_name} ${staffNames.last_name} `
+//       );
+//       const employeeData = employees.map((listOfEmployees) => ({
+//         name: listOfEmployees.first_name,
+//         value: listOfEmployees.id,
+//       }));
+//       inquirer
+//         .prompt([
+//           {
+//             type: "list",
+//             name: "deletedEmployee",
+//             message: `Which employee would you like to remove?`,
+//             choices: listOfNames,
+//           },
+//           {
+//             type: "list",
+//             name: "updatedRole",
+//             message: `Which role do you wish to assign to the selected employee?`,
+//             choices: employeeData,
+//           },
+//         ])
+  
+//         .then((udateEmployeeResponse) => {
+//           console.log(udateEmployeeResponse);
+//           db.query(
+//             `DROP employees SET employees.id`,
+//             [
+//               udateEmployeeResponse.updatedEmployee,
+//               udateEmployeeResponse.updatedEmployee.split(": ")[0],
+//             ],
+//             (err, roles) => {
+//               if (err) {
+//                 console.log(err);
+//               }
+//               console.log(`Employee Removed!`);
+//               mainLobby();
+//           }
+//         );
+//       });
+//     });
+//   });
+// }
 
 //View Deppartments
 const viewDep = () => {
