@@ -1,0 +1,26 @@
+{
+    "name": "DatabaseDemo",
+    "version": "1.0.0",
+    "description": "Command-line application allows non-developers to easily to manage a company's employee database, using Node.js, Inquirer, and MySQL.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Jackgoers96/DatabaseDemo.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Jackgoers96/DatabaseDemo/issues"
+    },
+    "homepage": "https://github.com/Jackgoers96/DatabaseDemo/",
+    "dependencies": {
+        "console.table": "^0.10.0",
+        "express": "^4.17.1",
+        "inquirer": "^8.1.5",
+        "mysql2": "^2.3.0"
+    }
+}
